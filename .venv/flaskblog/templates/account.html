@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='account_style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="account-header">
+            <button id="your-posts" onclick="showYourPosts()">Your Posts</button>
+            <button id="new-post" onclick="location.href='{{ url_for('blog.new_post') }}'">Post New Blog</button>
+        </div>
+
+        <div id="posts-section">
+            {% for post in posts %}
+                <div class="post-card" data-author-id="{{ post.author.id }}">
+                    <h2>{{ post.title }}</h2>
+                    <p>{{ post.content }}</p>
+                    <p>Posted by {{ post.author.username }} on {{ post.date_posted.strftime('%Y-%m-%d') }}</p>
+                    {% if post.author.id == user.id %}
+                        <div class="post-actions">
+                            <button onclick="location.href='{{ url_for('blog.update_post', post_id=post.id) }}'">Update</button>
+                            <form action="{{ url_for('blog.delete_post', post_id=post.id) }}" method="POST" style="display:inline;">
+                                <input type="submit" value="Delete" >
+                            </form>
+                        </div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <script>
+        function showYourPosts() {
+            const posts = document.querySelectorAll('.post-card');
+            const userId = {{ user.id }};
+            posts.forEach(post => {
+                const authorId = parseInt(post.getAttribute('data-author-id'), 10);
+                post.style.display = (authorId === userId) ? 'block' : 'none';
+            });
+        }
+    </script>
+</body>
+</html>
