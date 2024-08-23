@@ -1,6 +1,4 @@
 from flask import render_template, url_for, flash, redirect, request, session, abort, Blueprint
-from flaskblog import  db, bcrypt
-from flaskblog.forms import RegistrationForm, LoginForm
 from flaskblog.blog.forms import PostForm
 from flaskblog.models import User, Post
 

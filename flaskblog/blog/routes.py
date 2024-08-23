@@ -1,4 +1,4 @@
-from flask import render_template, url_for, flash, redirect, request, abort, session, Blueprint
+from flask import render_template, url_for, flash, redirect, request, session, Blueprint
 from flaskblog import db
 from flaskblog.models import Post
 from flaskblog.blog.forms import PostForm
