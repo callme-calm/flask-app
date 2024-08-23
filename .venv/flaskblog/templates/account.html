@@ -10,6 +10,7 @@
     <div class="container">
         <div class="account-header">
             <button id="your-posts" onclick="showYourPosts()">Your Posts</button>
+            <button id="new-post" onclick="location.href='{{ url_for('auth.logout') }}'">Logout</button>
             <button id="new-post" onclick="location.href='{{ url_for('blog.new_post') }}'">Post New Blog</button>
         </div>
 

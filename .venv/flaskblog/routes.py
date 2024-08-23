@@ -15,7 +15,9 @@ main = Blueprint('main', __name__)
 @main.route("/")
 @main.route("/home")
 def home():
+
     if 'user_id' not in session:
+        posts = Post.query.all()
         return render_template('home.html', posts=posts)
 
     return redirect(url_for('main.account'))
